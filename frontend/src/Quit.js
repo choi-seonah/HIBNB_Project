@@ -3,13 +3,10 @@ import "./Quit.css";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import apiClient from "./util/apiInstance";
+import {userLogout} from "./store";
 
 export default function Quit(){
-        /*
-        회원탈퇴
-        나중에 다시 수정할 것
-        * 대충 짜본 틀
-        */
     const [showConfirm, setShowConfirm] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -18,17 +15,18 @@ export default function Quit(){
     const token = useSelector((state) => state.token.token);
 
     const handleQuit = async () => {
-        try{
-            // const response = await axios.delete("" + currentUser.id);
+        try {
+            await apiClient.delete("/delete-member", {
+                params: { username: currentUser.username },
+            });
 
-        }catch (error){
-            console.log("회원탈퇴 에러: ", error);
+            alert("🙇‍♂️그동안 이용해주셔서 감사합니다.🙇‍♂️");
+            dispatch(userLogout());
+            navigate("/");
+        } catch (error) {
+            console.error("회원탈퇴 에러: ", error);
             alert("회원 탈퇴 중 문제가 발생했습니다.");
         }
-
-        alert("🙇‍♂️그동안 이용해주셔서 감사합니다.🙇‍♂️");
-        setShowConfirm(false);
-
     };
 
     return (

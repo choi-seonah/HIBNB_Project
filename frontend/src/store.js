@@ -23,9 +23,7 @@ const userInfoSlice = createSlice({
         setCurrentUser: (state, action) => {
             state.currentUser = action.payload;
         },
-        clearCurrentUser: (state) => {
-            state.currentUser = null;
-        },
+
         adminLogin: (state) => {
             state.adminLoginFlag = true;
         },
@@ -37,6 +35,7 @@ const userInfoSlice = createSlice({
         },
         userLogout: (state) => {
             state.userInfoList = [];
+            state.currentUser=null;
             state.userLoginFlag = false;
         },
     }
@@ -165,7 +164,6 @@ export const {
     clearUserInfo,
     setUserInfoList,
     setCurrentUser,
-    clearCurrentUser,
     adminLogin,
     adminLogout
 } = userInfoSlice.actions;

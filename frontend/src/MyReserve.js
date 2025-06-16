@@ -15,12 +15,20 @@ export default function MyReserve() {
         checkOut: "",
         guests: 1,
     });
+
+    // console.log("🔁 MyReserve 렌더링됨, currentUser:", currentUser);
+
     useEffect(() => {
+        // console.log("🟢 useEffect 실행됨, currentUser:", currentUser);
+        if(!currentUser || !currentUser.username) return;
         const fetchReservations = async () => {
+            // console.log("📦 fetchReservations 호출됨");
             try {
                 const accomResponse = await apiClient.get("/accom/list");
+                console.log("🏠 숙소 리스트:", accomResponse.data);
                 const accoms = accomResponse.data;
                 setAccomList(accoms);
+                console.log("🏠 숙소 리스트(어컴리스트):", accomList);
 
 
                 const reservationResponse = await apiClient.get("/book/list", {
@@ -28,6 +36,7 @@ export default function MyReserve() {
                         username: currentUser.username,
                     }
                 });
+                console.log("📑 예약 리스트:", reservationResponse.data);
 
                 const formatted = reservationResponse.data.map((res, index) => {
                     const accom = accomList.find(
@@ -38,8 +47,8 @@ export default function MyReserve() {
                         id: res.id || 1000 + index,
                         accommodation: res.accomid,
                         reserverName: res.username || "사용자",
-                        checkIn: res.checkIn,
-                        checkOut: res.checkOut,
+                        checkIn: res.checkindate,
+                        checkOut: res.checkoutdate,
                         guests: res.guests || 1,
                         status: res.status || "예약완료",
                         address: accom ? `${accom.address} ${accom.detailaddr}` : "주소 미제공",
@@ -54,7 +63,7 @@ export default function MyReserve() {
             }
         };
         fetchReservations();
-    }, []);
+    }, [currentUser?.username]);
 
     const toggleDetails = (id) => {
         setSelectedReservationId((prevId) => (prevId === id ? null : id));

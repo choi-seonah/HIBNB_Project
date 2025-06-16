@@ -1,51 +1,58 @@
 import {useEffect, useState} from "react";
 import "./MyRoom.css"
-import axios from "axios";
 import dayjs from "dayjs";
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import {useSelector} from "react-redux";
 import apiClient from "./util/apiInstance";
 
-export default function MyRoom(){
-        /*
-        * 이용내역
-        * 대충 짜본 틀
-        * css는 나중에 뺄꺼에용
-        */
+dayjs.extend(isSameOrBefore);
+export default function MyRoom() {
     const [showModal, setShowModal] = useState(false);
     const [history, setHistory] = useState([]);
-    const [selectedRoomId, setSelectedRoomId] = useState(null);
     const [reviewText, setReviewText] = useState("");
     const currentUser = useSelector((state) => state.userInfo.currentUser);
 
     useEffect(() => {
         const fetchHistory = async () => {
-            try{
-                const response = await apiClient.get("/book/list", {
-                    params: { username: currentUser.username },
+            try {
+                console.log("📌 현재 사용자:", currentUser?.username);
+
+                const resBook = await apiClient.get("/book/list", {
+                    params: { username: currentUser?.username },
+                });
+                console.log("📌 예약 목록 (book):", resBook.data);//
+
+                const resAccom = await apiClient.get("/accom/list");
+                console.log("📌 숙소 목록 (accom):", resAccom.data);
+
+                // const now = dayjs();
+
+                // ✅ checkout이 '오늘까지 포함되도록' 필터 조건 수정
+                const pastReservations = resBook.data
+                    .filter(item => item.status === "이용완료");
+
+                const formatted = pastReservations.map((item, index) => {
+                    const accom = resAccom.data.find(a => a.id === item.accomid);
+                    return {
+                        id: item.id,
+                        place: accom ? accom.address : `숙소 ID ${item.accomid}`,
+                        date: `${item.checkindate} ~ ${item.checkoutdate}`,
+                        isMostRecent: index === 0,
+                    };
                 });
 
-                const now = dayjs();
-                const pastReservations = response.data
-                    .filter((item) => dayjs(item.checkOut).isBefore(now))
-                    .sort((a, b) => dayjs(b.checkOut).diff(a.checkOut));
-
-                const formatted = pastReservations.map((item, index) => ({
-                    id: item.id,
-                    place: item.accomid,
-                    date: `${item.checkIn} ~ ${item.checkOut}`,
-                    isMostRecent: index === 0,
-                }));
-
+                console.log("✅ 과거 예약 필터링 결과:", formatted);
                 setHistory(formatted);
-            }catch(error){
-                console.error("이용 내역 불러오기 실패: ", error);
+            } catch (error) {
+                console.error("❌ 이용 내역 불러오기 실패: ", error);
             }
+        };
+
+        if (currentUser?.username) {
+            fetchHistory();
         }
-        fetchHistory();
-    },[]);
-
-
-
+    }, [currentUser?.username]);
+    console.log("히스토리",history);
 
     return (
         <div className="room-container">
@@ -58,11 +65,15 @@ export default function MyRoom(){
                     {history.map((item) => (
                         <li key={item.id} className="room-card">
                             <div>
+                                <div className="room-place">예약자: {currentUser.username}</div>
                                 <div className="room-place">{item.place}</div>
                                 <div className="room-date">{item.date}</div>
                             </div>
                             {item.isMostRecent && (
-                                <button className="room-review-btn" onClick={() => setShowModal(true)}>
+                                <button
+                                    className="room-review-btn"
+                                    onClick={() => setShowModal(true)}
+                                >
                                     리뷰 쓰기
                                 </button>
                             )}
@@ -74,7 +85,10 @@ export default function MyRoom(){
             {showModal && (
                 <div className="modal-overlay" onClick={() => setShowModal(false)}>
                     <div className="modal" onClick={(e) => e.stopPropagation()}>
-                        <button className="modal-close-btn" onClick={() => setShowModal(false)}>
+                        <button
+                            className="modal-close-btn"
+                            onClick={() => setShowModal(false)}
+                        >
                             ×
                         </button>
                         <h3 className="modal-title">리뷰 작성</h3>
@@ -85,7 +99,10 @@ export default function MyRoom(){
                             onChange={(e) => setReviewText(e.target.value)}
                         />
                         <div className="modal-footer">
-                            <button className="modal-submit-btn" onClick={() => setShowModal(false)}>
+                            <button
+                                className="modal-submit-btn"
+                                onClick={() => setShowModal(false)}
+                            >
                                 제출
                             </button>
                         </div>
@@ -94,5 +111,4 @@ export default function MyRoom(){
             )}
         </div>
     );
-
 }
