@@ -6,6 +6,7 @@ import com.example.hibnb_project.data.dto.AccomDTO;
 import com.example.hibnb_project.data.dto.AccomSeachDTO;
 import com.example.hibnb_project.data.dto.ReviewDTO;
 import com.example.hibnb_project.data.entity.AccomEntity;
+import com.example.hibnb_project.data.entity.BookEntity;
 import com.example.hibnb_project.data.entity.ImgEntity;
 import com.example.hibnb_project.data.entity.ReviewEntity;
 import lombok.RequiredArgsConstructor;
@@ -151,6 +152,42 @@ public class AccomService {
                     .imageUrls(!urls.isEmpty() ? urls : null)
                     .maxcapacity(accomE.getMaxcapacity())
                     .pricePerNight(accomE.getPricePerNight())
+                    .build();
+            accomDTOList.add(accomDTO);
+        }
+        return accomDTOList;
+    }
+
+    public List<AccomDTO> findTop5() {
+        List<BookEntity> books = this.accomDAO.findTop5Books();
+        List<AccomDTO> accomDTOList = new ArrayList<>();
+        for (BookEntity bookEntity : books) {
+            AccomEntity accomEntity = bookEntity.getAccomid();
+            ImgEntity imgEntity = accomEntity.getImg();
+            List<String> urls = new ArrayList<>();
+            if (imgEntity != null) {
+                urls.add(imgEntity.getImg1());
+                urls.add(imgEntity.getImg2());
+                urls.add(imgEntity.getImg3());
+                urls.add(imgEntity.getImg4());
+                urls = urls.stream()
+                        .filter(item -> item != null)
+                        .collect(Collectors.toList());
+            }
+            AccomDTO accomDTO = AccomDTO.builder()
+                    .id(accomEntity.getId())
+                    .hostid((accomEntity.getHostid()).getUsername())
+                    .hostname(accomEntity.getHostname())
+                    .address(accomEntity.getAddress())
+                    .detailaddr(accomEntity.getDetailaddr())
+                    .description(accomEntity.getDescription())
+                    .type(accomEntity.getType())
+                    .beds(accomEntity.getBeds())
+                    .bedrooms(accomEntity.getBedrooms())
+                    .bathrooms(accomEntity.getBathrooms())
+                    .imageUrls(!urls.isEmpty() ? urls : null)
+                    .maxcapacity(accomEntity.getMaxcapacity())
+                    .pricePerNight(accomEntity.getPricePerNight())
                     .build();
             accomDTOList.add(accomDTO);
         }

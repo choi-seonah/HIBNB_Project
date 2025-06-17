@@ -44,6 +44,11 @@ public class AccomController {
         return ResponseEntity.ok(this.accomService.findByHostid(username));
     }
 
+    @GetMapping(value = "/list/review")
+    public ResponseEntity<List<AccomDTO>> findByReview() {
+        return ResponseEntity.ok(this.accomService.findTop5());
+    }
+
     @PostMapping(value = "/save")
     public ResponseEntity<String> saveAccom(@ModelAttribute AccomDTO accomDTO) throws IOException {
         return ResponseEntity.status(HttpStatus.OK).body(this.accomService.saveAccom(accomDTO));

@@ -1,9 +1,11 @@
 package com.example.hibnb_project.data.dao;
 
 import com.example.hibnb_project.data.entity.AccomEntity;
+import com.example.hibnb_project.data.entity.BookEntity;
 import com.example.hibnb_project.data.entity.ImgEntity;
 import com.example.hibnb_project.data.entity.UserEntity;
 import com.example.hibnb_project.data.repository.AccomRepository;
+import com.example.hibnb_project.data.repository.BookRepository;
 import com.example.hibnb_project.data.repository.ImgRepository;
 import com.example.hibnb_project.data.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -29,7 +31,7 @@ import java.util.function.Consumer;
 public class AccomDAO {
     private final AccomRepository accomRepository;
     private final UserRepository userRepository;
-    private final ImgRepository imgRepository;
+    private final BookRepository bookRepository;
 
     @Value("${upload.dir}")
     private String uploadDir;
@@ -43,6 +45,10 @@ public class AccomDAO {
     public List<AccomEntity> findDetailedAccom(String addr, LocalDate checkinDate, LocalDate checkoutDate, Integer capacity){
         List<AccomEntity> accomEntityList=this.accomRepository.findDetailedAccom("%"+addr+"%",checkinDate,checkoutDate,capacity);
         return accomEntityList;
+    }
+
+    public List<BookEntity> findTop5Books() {
+        return this.bookRepository.findTop5ByOrderByAccomidDescAccomidDesc();
     }
 
     public List<AccomEntity> findByHostid(String hostid){

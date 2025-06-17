@@ -8,7 +8,7 @@ export default function ModifyList() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const usernameAccom = useSelector(state => state.accom.list);
-    const username = useSelector(state => state.userInfo.userInfoList.username);
+    const username = useSelector(state => state.userInfo.userInfoList[0].username);
 
     useEffect(() => {
         const fetchAccomList = async () => {
