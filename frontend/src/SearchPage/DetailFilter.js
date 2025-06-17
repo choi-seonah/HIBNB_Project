@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {resetFilters, setFilters, setAccom} from "./store";
-import './App.css'
+import {resetFilters, setFilters, setAccom} from "../store";
+import '../index.css';
 
 export default function DetailFilter() {
     const dispatch = useDispatch();
@@ -41,69 +41,74 @@ export default function DetailFilter() {
 
     return (
         <>
-            <hr/>
+
             <div className="detail-filter">
-                <button type="button" onClick={() => setIsBoxOpen(!isBoxOpen)}>
-                    필터
-                </button>
-                {isBoxOpen && (
-                    <div>
-                        <div className="filter-section">
-                            <h4>숙소 유형</h4>
+
+
+                    <div className="filter-allSection">
+
+                        <div className="filter-section-type">
+                            <h4 className={"filter-section-title"}>숙소 유형</h4>
                             {typeOptions.map((type) => (
                                 <label key={type}>
                                     <input
                                         type="checkbox"
                                         value={type}
                                         checked={filters.type === type}
+                                        className={"filter-section-type-input"}
                                         onChange={(e) => handleFilterChange("type", e.target.value)}
                                     />
-                                    {type}
+                                    {type}<br/>
                                 </label>
                             ))}
                         </div>
+
                         <div className="filter-section">
-                            <h4>침실 방 개수</h4>
+                            <h4 className={"filter-section-title"}>침실 방 개수</h4>
                             <input
                                 type="number"
                                 value={filters.bedrooms}
                                 min="0"
+                                className={"filter-section-input"}
                                 onChange={(e) => handleFilterChange("bedrooms", Number(e.target.value))}
                             />
                         </div>
                         <div className="filter-section">
-                            <h4>침대 개수</h4>
+                            <h4 className={"filter-section-title"}>침대 개수</h4>
                             <input
                                 type="number"
                                 value={filters.beds}
                                 min="0"
+                                className={"filter-section-input"}
                                 onChange={(e) => handleFilterChange("beds", Number(e.target.value))}
                             />
                         </div>
                         <div className="filter-section">
-                            <h4>욕실 개수</h4>
+                            <h4 className={"filter-section-title"}>욕실 개수</h4>
                             <input
                                 type="number"
                                 value={filters.bathrooms}
                                 min="0"
+                                className={"filter-section-input"}
                                 onChange={(e) => handleFilterChange("bathrooms", Number(e.target.value))}
                             />
                         </div>
                         <div className="filter-section">
-                            <h4>최대 수용 인원</h4>
+                            <h4 className={"filter-section-title"}>최대 수용 인원</h4>
                             <input
                                 type="number"
                                 value={filters.maxcapacity}
                                 min="1"
+                                className={"filter-section-input"}
                                 onChange={(e) => handleFilterChange("maxcapacity", Number(e.target.value))}
                             />
                         </div>
-                        <div className="filter-buttons">
-                            <button onClick={handleApplyFilters}>적용</button>
-                            <button onClick={handleResetFilters}>초기화</button>
+                        <div>
+                            <button className="filter-buttons" onClick={handleApplyFilters}>적용</button>
+                            <button className="filter-buttons" onClick={handleResetFilters}>초기화</button>
                         </div>
                     </div>
-                )}
+
             </div>
         </>
     );

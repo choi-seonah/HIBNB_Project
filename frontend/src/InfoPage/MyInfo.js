@@ -1,8 +1,7 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-    /*
-    * css 나중에 따로 뺄거에용
-    * */
+import '../index.css';
+
 export function MyInfo() {
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");

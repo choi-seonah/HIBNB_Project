@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import apiClient from "./util/apiInstance";
+import apiClient from "../util/apiInstance";
+import '../index.css';
 
 const AdminReportPage = () => {
     const [reports, setReports] = useState([]);

@@ -1,43 +1,7 @@
-import apiClient from "./util/apiInstance";
+import apiClient from "../util/apiInstance";
 import {useSelector} from "react-redux";
 import {useState} from "react";
-
-// export default function HostHistory(){
-//     const user=useSelector(state=>state.userInfo.userInfoList);
-//     const [bookings, setBookings]=useState([]);
-//
-//     const handleCheck = async () => {
-//         try {
-//             const response = await apiClient.get(`http://localhost:8080/book/list/hostid?hostid=${user.username}`);
-//             if (response.data) {
-//                 setBookings(response.data); // 또는 dispatch(setBookList(response.data))
-//                 alert("조회 완료");
-//             }
-//         } catch (error) {
-//             console.error(error);
-//             alert("조회 중 오류가 발생했습니다.");
-//         }
-//     };
-//
-//     return(
-//         <>
-//             <h2>호스트 예약 내역</h2>
-//             <button onClick={handleCheck}>조회하기</button>
-//             <ul>
-//                 {bookings.length>0 ? (
-//                     bookings.map((booking, index)=>(
-//                         <li key={index}>
-//                             예약번호: {booking.id} / 숙소명: {booking.address}의 {booking.type} / 예약자: {booking.username}
-//                             <button>신고하기</button>
-//                         </li>
-//                     ))
-//                 ) : (
-//                     <li>예약 내역이 없습니다.</li>
-//                 )}
-//             </ul>
-//         </>
-//     );
-// }
+import '../index.css';
 
 export default function HostHistory() {
     const user = useSelector(state => state.userInfo.userInfoList);
@@ -89,17 +53,17 @@ export default function HostHistory() {
 
     return (
         <>
-            <h2>호스트 예약 내역</h2>
+            <h2 className={"login-form__title"}>호스트 예약 내역</h2>
             <button onClick={handleCheck}>조회하기</button>
             <ul>
                 {bookings.length > 0 ? (
                     bookings.map((booking, index) => (
-                        <li key={index} style={{ marginBottom: '1rem' }}>
+                        <li key={index} style={{marginBottom: '1rem'}}>
                             예약번호: {booking.id} / 숙소명: {booking.address}의 {booking.type} / 예약자: {booking.username}
                             <button onClick={() => setReportTargetId(booking.id)}>신고하기</button>
 
                             {reportTargetId === booking.id && (
-                                <div style={{ marginTop: '0.5rem', border: '1px solid #ccc', padding: '0.5rem' }}>
+                                <div style={{marginTop: '0.5rem', border: '1px solid #ccc', padding: '0.5rem'}}>
                                     <label>
                                         사유:
                                         <select value={reportType} onChange={(e) => setReportType(e.target.value)}>
@@ -110,13 +74,15 @@ export default function HostHistory() {
                                             <option value="기타">기타</option>
                                         </select>
                                     </label>
-                                    <br />
+                                    <br/>
                                     <label>
                                         상세 내용:
-                                        <br />
-                                        <textarea value={reportComment} onChange={(e) => setReportComment(e.target.value)} rows={4} cols={50} />
+                                        <br/>
+                                        <textarea value={reportComment}
+                                                  onChange={(e) => setReportComment(e.target.value)} rows={4}
+                                                  cols={50}/>
                                     </label>
-                                    <br />
+                                    <br/>
                                     <button onClick={() => handleReportSubmit(booking)}>제출</button>
                                     <button onClick={() => setReportTargetId(null)}>취소</button>
                                 </div>

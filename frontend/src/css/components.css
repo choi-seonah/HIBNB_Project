@@ -1,0 +1,214 @@
+/* 검색 폼 */
+.main-search {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 32px;
+    max-width: 1100px;
+    width: 1100px;
+    margin: 10px auto;
+}
+
+.search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.search-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 200px;
+    position: relative;
+    padding: -20px;
+}
+
+.search-item label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.search-item__input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 17px;
+    transition: all 0.2s ease;
+    background: #fff;
+    width: 180px;
+}
+
+.search-item__input:focus {
+    border-color: #6c63ff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+}
+
+.destination-box {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    z-index: 10;
+    margin-top: 4px;
+}
+
+.destination-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.destination-item:hover {
+    background: #f0f0f0;
+}
+
+.search-button {
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #6c63ff, #a683e3);
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+    flex: 1 1 100%;
+}
+
+.search-button:hover {
+    background: linear-gradient(135deg, #5a54e0, #9270db);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(108, 99, 255, 0.35);
+}
+
+.detail-search-container {
+    display: flex;
+
+}
+
+.detail-filter {
+    gap: 10px;
+    width: 300px;
+    display: flex;
+    justify-content: left;
+}
+
+.detail-filter-btn {
+    padding: 10px 16px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    margin-top: 12px;
+    width: 300px;
+}
+
+.filter-allSection {
+    padding: 10px 16px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 12px;
+    width: 200px;
+}
+
+.filter-section {
+    width: 200px;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--box-shadow);
+}
+
+.accom-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    column-gap: 100px;
+    row-gap: 0;
+}
+
+.accom-card {
+    width: 300px;
+    margin: 50px;
+}
+
+.accom-img {
+    width: 250px;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+
+}
+
+.accom-card-content {
+    margin: 50px;
+    padding: 0px;
+}
+
+.accom-card-box {;
+    width: 200px;
+}
+
+.filter-section-title {
+    text-align: center;
+}
+
+.filter-section-type {
+    width: 200px;
+    height: 250px;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--box-shadow);
+}
+
+.filter-section-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 17px;
+    transition: all 0.2s ease;
+    background: #fff;
+    width: 175px;
+}
+
+.filter-buttons {
+    padding: 10px 16px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    margin-top: 12px;
+    width: 200px;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

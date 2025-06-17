@@ -184,6 +184,6 @@ export const {
     resetFilters
 } = searchSlice.actions;
 
-export const {setAccom, userAccom, addAccom, updateAccom, removeAccom} = accomSlice.actions;
+export const {setAccom, userAccom, addAccom, updateAccom, removeAccom, removeAccomImage} = accomSlice.actions;
 export const {updateBook} = bookSlice.actions;
 

@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "./MyRoom.css"
+import '../index.css';
 
 export default function MyRoom(){
         /*

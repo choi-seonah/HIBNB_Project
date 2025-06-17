@@ -1,10 +1,9 @@
 import {NavLink, Outlet} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
-import {userLogin} from "./store";
-    /*
-    * css 나중에 따로 뺄거에용
-    * */
+import {userLogin} from "../store";
+import '../index.css';
+
 export default function MyInfoLayout() {
     const dispatch = useDispatch();
 

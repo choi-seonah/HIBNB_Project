@@ -1,20 +1,22 @@
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-import {removeAccom, updateAccom} from "./store";
+import {removeAccom, updateAccom} from "../store";
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
+import '../index.css';
 
 export default function ModifyRoom() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const user = useSelector(state => state.userInfo.userInfoList);
     const usernameAccom = useSelector(state => state.accom.list)
     const {id} = useParams();
     const item = usernameAccom.find((item) => item.id === Number(id));
     const [check, setCheck] = useState(false);
 
     const [formData, setFormData] = useState({
-        hostid: usernameAccom.username,
-        hostname: usernameAccom.name,
+        hostid: user.username,
+        hostname: user.name,
         address: "",
         detailaddr: "",
         description: "",
@@ -25,13 +27,14 @@ export default function ModifyRoom() {
         maxcapacity: 1,
         pricePerNight: 0,
         images: [],
+        urlsToDelete: [],
     });
 
     useEffect(() => {
         if (item) {
             setFormData({
-                hostid: item.username || "",
-                hostname: item.name || "",
+                hostid: user.username || "",
+                hostname: user.name || "",
                 address: item.address || "",
                 detailaddr: item.detailaddr || "",
                 description: item.description || "",
@@ -42,6 +45,7 @@ export default function ModifyRoom() {
                 maxcapacity: item.maxcapacity || 1,
                 pricePerNight: item.pricePerNight || 0,
                 images: [],
+                urlsToDelete: []
             });
         }
     }, [item]);
@@ -55,6 +59,7 @@ export default function ModifyRoom() {
         e.preventDefault();
 
         const data = new FormData();
+        data.append("id", Number(id));
         data.append("hostid", formData.hostid);
         data.append("hostname", formData.hostname);
         data.append("address", formData.address);
@@ -66,6 +71,7 @@ export default function ModifyRoom() {
         data.append("bathrooms", formData.bathrooms);
         data.append("maxcapacity", formData.maxcapacity);
         data.append("pricePerNight", formData.pricePerNight);
+        data.append("urlsToDelete", formData.urlsToDelete);
         formData.images.forEach((image) => {
             data.append("images", image); // 다중 이미지 추가
         });
@@ -121,14 +127,32 @@ export default function ModifyRoom() {
         }
     }
 
+    const handleChangeChecked = (e) => {
+        const value = e.target.value;
+        if (e.target.checked) {
+            setFormData((prev) => ({
+                ...prev,
+                urlsToDelete: [...prev.urlsToDelete, value]
+            }))
+        } else {
+            setFormData((prev) => ({
+                ...prev,
+                urlsToDelete: prev.urlsToDelete.filter((url) => url !== value)
+            }))
+        }
+    };
+
+    console.log(user);
     return (
         <div>
+            <h2 className={"login-form__title"}>숙소 수정</h2>
             <form onSubmit={handleSubmit}>
                 <p>
                     <label>주소: </label>
                     <input
                         type="text"
                         name="address"
+                        className={"login-form__input"}
                         placeholder="주소 (예: 경기도, 서울특별시)"
                         value={formData.address}
                         onChange={handleChange}
@@ -140,18 +164,9 @@ export default function ModifyRoom() {
                     <input
                         type="text"
                         name="detailaddr"
+                        className={"login-form__input"}
                         placeholder="상세 주소"
                         value={formData.detailaddr}
-                        onChange={handleChange}
-                        required
-                    />
-                </p>
-                <p>
-                    <label>설명: </label>
-                    <textarea
-                        name="description"
-                        placeholder="숙소 설명"
-                        value={formData.description}
                         onChange={handleChange}
                         required
                     />
@@ -161,6 +176,7 @@ export default function ModifyRoom() {
                     <input
                         type="text"
                         name="type"
+                        className={"login-form__input"}
                         placeholder="아파트, 펜션, 게스트하우스, 선택"
                         value={formData.type}
                         onChange={handleChange}
@@ -172,6 +188,7 @@ export default function ModifyRoom() {
                     <input
                         type="number"
                         name="bedrooms"
+                        className={"login-form__input"}
                         placeholder="침실 개수"
                         value={formData.bedrooms}
                         onChange={handleNumberChange}
@@ -184,6 +201,7 @@ export default function ModifyRoom() {
                     <input
                         type="number"
                         name="beds"
+                        className={"login-form__input"}
                         placeholder="침대 개수"
                         value={formData.beds}
                         onChange={handleNumberChange}
@@ -196,6 +214,7 @@ export default function ModifyRoom() {
                     <input
                         type="number"
                         name="bathrooms"
+                        className={"login-form__input"}
                         placeholder="욕실 개수"
                         value={formData.bathrooms}
                         onChange={handleNumberChange}
@@ -208,6 +227,7 @@ export default function ModifyRoom() {
                     <input
                         type="number"
                         name="maxcapacity"
+                        className={"login-form__input"}
                         placeholder="최대 수용 인원"
                         value={formData.maxcapacity}
                         onChange={handleNumberChange}
@@ -220,6 +240,7 @@ export default function ModifyRoom() {
                     <input
                         type="number"
                         name="pricePerNight"
+                        className={"login-form__input"}
                         placeholder="1박당 가격"
                         value={formData.pricePerNight}
                         onChange={handleNumberChange}
@@ -228,25 +249,32 @@ export default function ModifyRoom() {
                     />
                 </p>
                 <p>
+                    <label>설명: </label>
+                    <textarea
+                        name="description"
+                        className={"login-form__input"}
+                        placeholder="숙소 설명"
+                        value={formData.description}
+                        onChange={handleChange}
+                        required
+                    />
+                </p>
+                <p>
                     <label>등록 된 사진:</label>
                     {item.imageUrls && item.imageUrls.length > 0 && (
-                        <div>
-                            <label>
-                                <img
-                                    src={item.imageUrls[0]}
-                                    alt="기존 이미지"
-                                    style={{width: "200px"}}
-                                />
-                                <input
-                                    type="checkbox"
-                                    name="imageDelete"
-                                    checked={check}
-                                    onChange={handleImageDeleteCheck}
-                                />
-                                삭제 선택
-                            </label>
-                            <button onClick={handleImageAllDelete}>선택 된 항목 삭제</button>
-                        </div>
+                        item.imageUrls.map(url => {
+                            return (
+                                <div style={{width: "300px", overflow: "auto"}}>
+                                    <div style={{display: "inline-block", width: "100px"}}>
+                                        <input type="checkbox" name={"image"} value={url}
+                                               onChange={handleChangeChecked}></input>
+                                        <div>
+                                            <img id={url} src={url} alt={url} style={{width: "90px"}}></img>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })
                     )}
                     <input
                         type="file"

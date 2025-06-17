@@ -1,11 +1,12 @@
-import apiClient from "./util/apiInstance";
-import {setToken, setUserInfoList, setUserRole} from "./store";
+import apiClient from "../util/apiInstance";
+import {setToken, setUserInfoList, setUserRole} from "../store";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import '../index.css';
 
-export default function AdminLogin(){
-    const navigate=useNavigate();
-    const dispatch=useDispatch();
+export default function AdminLogin() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -37,18 +38,19 @@ export default function AdminLogin(){
         }
     };
 
-    return(
-        <>
-            <form onSubmit={handleLogin}>
-                <h2>관리자 로그인</h2>
+    return (
+        <div className={"login-form"}>
+            <form onSubmit={handleLogin} className={"login-form__form"}>
+                <h2 className={"login-form__title"}>관리자 로그인</h2>
                 <p> ID:
-                    <input type="text" name={"username"}/>
+                    <input type="text" name={"username"} required className={"login-form__input"}/>
                 </p>
                 <p> PW:
-                    <input type="password" name={"password"}/>
+                    <input type="password" name={"password"} required className={"login-form__input"}/>
                 </p>
-                <button type={"submit"}>관리자 로그인</button><br/>
+                <button type={"submit"} className={"login-form__submit-btn"}>관리자 로그인</button>
+                <br/>
             </form>
-        </>
+        </div>
     );
 }

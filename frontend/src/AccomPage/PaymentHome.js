@@ -1,5 +1,6 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
+import '../index.css';
 
 export default function PaymentHome(){
     const navigate = useNavigate();

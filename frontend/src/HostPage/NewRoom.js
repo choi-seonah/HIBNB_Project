@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {addAccom} from "./store";
+import {addAccom} from "../store";
+import '../index.css';
 
 export default function NewRoom() {
     const navigate = useNavigate();
@@ -84,6 +85,7 @@ export default function NewRoom() {
 
     return (
         <div>
+            <h2 className={"login-form__title"}>호스팅 등록</h2>
             <form onSubmit={handleSubmit}>
                 <p>
                     <label>주소: </label>
@@ -92,6 +94,7 @@ export default function NewRoom() {
                         name="address"
                         placeholder="주소 (예: 경기도, 서울특별시)"
                         value={formData.address}
+                        className={"login-form__input"}
                         onChange={handleChange}
                         required
                     />
@@ -103,16 +106,7 @@ export default function NewRoom() {
                         name="detailaddr"
                         placeholder="상세 주소"
                         value={formData.detailaddr}
-                        onChange={handleChange}
-                        required
-                    />
-                </p>
-                <p>
-                    <label>설명: </label>
-                    <textarea
-                        name="description"
-                        placeholder="숙소 설명"
-                        value={formData.description}
+                        className={"login-form__input"}
                         onChange={handleChange}
                         required
                     />
@@ -124,6 +118,7 @@ export default function NewRoom() {
                         name="type"
                         placeholder="아파트, 펜션, 게스트하우스, 선택"
                         value={formData.type}
+                        className={"login-form__input"}
                         onChange={handleChange}
                         required
                     />
@@ -135,6 +130,7 @@ export default function NewRoom() {
                         name="bedrooms"
                         placeholder="침실 개수"
                         value={formData.bedrooms}
+                        className={"login-form__input"}
                         onChange={handleNumberChange}
                         min="0"
                         required
@@ -147,6 +143,7 @@ export default function NewRoom() {
                         name="beds"
                         placeholder="침대 개수"
                         value={formData.beds}
+                        className={"login-form__input"}
                         onChange={handleNumberChange}
                         min="0"
                         required
@@ -159,6 +156,7 @@ export default function NewRoom() {
                         name="bathrooms"
                         placeholder="욕실 개수"
                         value={formData.bathrooms}
+                        className={"login-form__input"}
                         onChange={handleNumberChange}
                         min="0"
                         required
@@ -171,6 +169,7 @@ export default function NewRoom() {
                         name="maxcapacity"
                         placeholder="최대 수용 인원"
                         value={formData.maxcapacity}
+                        className={"login-form__input"}
                         onChange={handleNumberChange}
                         min="1"
                         required
@@ -183,6 +182,7 @@ export default function NewRoom() {
                         name="pricePerNight"
                         placeholder="1박당 가격"
                         value={formData.pricePerNight}
+                        className={"login-form__input"}
                         onChange={handleNumberChange}
                         min="0"
                         required
@@ -195,12 +195,25 @@ export default function NewRoom() {
                         name="images"
                         accept="image/*"
                         multiple
+                        className={"login-form__input"}
                         onChange={handleChange}
                         required
                     />
                 </p>
-                <button type="submit">등록</button>
-                <button type={"button"} onClick={handleClose}>취소</button>
+                <p>
+                    <label>설명: </label>
+                    <textarea
+                        style={{width:"300px", height:"20px"}}
+                        name="description"
+                        placeholder="숙소 설명"
+                        value={formData.description}
+                        className={"login-form__input"}
+                        onChange={handleChange}
+                        required
+                    />
+                </p>
+                <button type="submit" className={"login-form__submit-btn"}>등록</button>
+                <button type={"button"} onClick={handleClose} className={"login-form__submit-btn"}>취소</button>
             </form>
         </div>
     );

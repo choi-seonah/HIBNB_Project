@@ -1,0 +1,11 @@
+:root {
+    --main-font: 'SUIT', 'Pretendard', 'Noto Sans KR', sans-serif;
+    --primary-color: #6c63ff;
+    --hover-color: #554ff4;
+    --bg-gradient: linear-gradient(135deg, #f9fbfd 0%, #e4edf4 100%); /* ✅ 더 연한 배경 */
+    --white-blur: rgba(255, 255, 255, 0.9); /* ✅ 조금 더 밝은 카드 */
+    --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05); /* ✅ 더 부드러운 그림자 */
+    display: flex;
+    justify-content: center;
+
+}

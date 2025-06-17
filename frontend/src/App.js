@@ -1,29 +1,26 @@
-import './App.css';
 import {Route, Routes} from "react-router-dom";
-import MyInfoLayout from "./MyInfoLayout";
-import {MyInfo} from "./MyInfo";
-import MyReserve from "./MyReserve";
-import MyRoom from "./MyRoom";
-import Quit from "./Quit";
-import PaymentHome from "./PaymentHome";
-import MainLayout from "./MainLayout";
-
-import MainSearch from "./MainSearch";
-import UserLogin from "./UserLogin";
-import UserJoin from "./UserJoin";
-import DetailSearch from "./DetailSearch";
-import NewRoom from "./NewRoom";
-import Logout from "./Logout";
-import ReConfirmID from "./ReConfirmID";
-import ReConfirmPW from "./ReConfirmPW";
-import AccomDetail from "./AccomDetail";
-import ModifyRoom from "./ModifyRoom";
-import HostingLayout from "./HostingLayout";
-import ModifyList from "./ModifyList";
-import HostHistory from "./HostHistory";
-import AdminReport from "./AdminReport";
-import AdminLogin from "./AdminLogin";
-
+import MyInfoLayout from "./LayoutPage/MyInfoLayout";
+import HostingLayout from "./LayoutPage/HostingLayout";
+import MainLayout from "./LayoutPage/MainLayout";
+import {MyInfo} from "./InfoPage/MyInfo";
+import MyReserve from "./InfoPage/MyReserve";
+import MyRoom from "./InfoPage/MyRoom";
+import Quit from "./UserPage/Quit";
+import UserLogin from "./UserPage/UserLogin";
+import UserJoin from "./UserPage/UserJoin"
+import Logout from "./UserPage/Logout";
+import ReConfirmID from "./UserPage/ReConfirmID";
+import ReConfirmPW from "./UserPage/ReConfirmPW";
+import MainSearch from "./SearchPage/MainSearch";
+import DetailSearch from "./SearchPage/DetailSearch";
+import AccomDetail from "./AccomPage/AccomDetail";
+import PaymentHome from "./AccomPage/PaymentHome";
+import ModifyRoom from "./HostPage/ModifyRoom";
+import NewRoom from "./HostPage/NewRoom";
+import ModifyList from "./HostPage/ModifyList";
+import HostHistory from "./HostPage/HostHistory";
+import AdminReport from "./AdminPage/AdminReport";
+import AdminLogin from "./AdminPage/AdminLogin";
 
 export default function App() {
     return (

@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
-import apiClient from "./util/apiInstance";
+import apiClient from "../util/apiInstance";
 import {useState} from "react";
+import '../index.css';
 
 export default function ReConfirmPW() {
     const navigate = useNavigate();
@@ -73,34 +74,37 @@ export default function ReConfirmPW() {
 
     return (
         <>
-            <h2>비밀번호 찾기</h2>
+            <h2 className={"login-form__title"}>비밀번호 찾기</h2>
             <form onSubmit={handleexample}>
-                <label>아이디를 입력해주세요.</label>
-                <input
-                    type="text"
-                    name="username"
-                    value={username}
-                    onChange={(e)=>setUserName(e.target.value)}
-                /><br/>
-
-                <label>이메일을 입력해주세요. 입력하신 이메일로 인증번호가 전송됩니다.</label><br/>
+                <div className={"reconfirm-form-text"}>입력하신 이메일로 인증번호가 전송됩니다.</div><br/>
                 <input
                     type="text"
                     name="email"
                     value={email}
+                    placeholder={"이메일을 입력해주세요."}
+                    className={"reconfirm-form-input"}
                     onChange={(e)=>setEmail(e.target.value)}
-                />
-                <button onClick={handleSendEmail}>인증번호 전송</button><br/>
+                /><br/>
 
-                <label>인증번호를 입력하세요.</label>
+                <input
+                    type="text"
+                    name="username"
+                    value={username}
+                    placeholder={"아이디를 입력해주세요."}
+                    className={"reconfirm-form-input"}
+                    onChange={(e)=>setUserName(e.target.value)}
+                /><button onClick={handleSendEmail} className={"reconfirm-form-btn"}>인증번호 전송</button><br/>
+
                 <input
                     type="password"
                     name="code"
                     value={code}
+                    placeholder={"인증번호를 입력하세요."}
+                    className={"reconfirm-form-input"}
                     onChange={(e)=>setCode(e.target.value)}
                 />
 
-                <button type="submit" disabled={!emailAuthenSent}>인증하기</button>
+                <button type="submit" disabled={!emailAuthenSent} className={"reconfirm-form-btn"}>인증하기</button>
                 {/*<button onClick={resetPW} disabled={!emailAuthenSent}>
                     비밀번호 재설정
                 </button>*/}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./MyReserve.css"; // CSS 파일 import
+import '../index.css';
 
 export default function MyReserve() {
     const defaultReservations = [

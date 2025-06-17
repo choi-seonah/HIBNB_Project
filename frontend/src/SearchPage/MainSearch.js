@@ -1,9 +1,9 @@
 import React, {useState, useRef} from "react";
 import {Outlet, useNavigate} from "react-router-dom";
-import "./App.css";
-import apiClient from "./util/apiInstance";
+import '../index.css';
+import apiClient from "../util/apiInstance";
 import {useDispatch} from "react-redux";
-import {setAccom, setSearchParams, setSearchResults} from "./store";
+import {setAccom, setSearchParams, setSearchResults} from "../store";
 
 export default function MainSearch() {
     const navigate = useNavigate();
@@ -106,6 +106,7 @@ export default function MainSearch() {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             onFocus={() => setIsBoxOpen(true)}
+                            className="search-item__input"
                         />
                         {isBoxOpen && (
                             <div className="destination-box">
@@ -143,6 +144,7 @@ export default function MainSearch() {
                             type="date"
                             value={checkInDate}
                             onChange={handleCheckInChange}
+                            className="search-item__input"
                         />
                     </div>
 
@@ -152,6 +154,16 @@ export default function MainSearch() {
                             type="date"
                             value={checkOutDate}
                             onChange={handleCheckOutChange}
+                            className="search-item__input"
+                        />
+                    </div>
+                    <div className="search-item">
+                        <label>여행자 인원</label>
+                        <input
+                            type="number"
+                            value={guests}
+                            onChange={handleGuestsChange}
+                            className="search-item__input"
                         />
                     </div>
 
