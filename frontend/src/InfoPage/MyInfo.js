@@ -79,7 +79,7 @@ export default function MyInfo() {
                 setPhone(res.data.phone || "");
 
                 alert(`정보가 수정되었습니다.\n\n변경된 항목:\n${changes.join("\n")}`);
-                // navigate("/");
+                navigate("/");
             } else {
                 alert("서버로부터 올바른 응답을 받지 못했습니다.");
             }
