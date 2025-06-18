@@ -51,9 +51,9 @@ public class UserController {
     }
 
     @PutMapping(value = "/update-inform")
-    public ResponseEntity<String> updateInform(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> updateInform(@RequestBody UserDTO userDTO) {
         this.userService.updateInform(userDTO);
-        return ResponseEntity.ok("update inform success");
+        return ResponseEntity.status(HttpStatus.OK).body(userDTO);
     }
 
     @PostMapping(value = "/comapre-password")// 비밀번호 재확인시 일치/불일치를 boolean으로 전달

@@ -1,5 +1,7 @@
 package com.example.hibnb_project.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,11 +27,13 @@ public class BookEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "username", nullable = false)
+    @JsonBackReference
     private UserEntity username;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "accomid", nullable = false)
+    @JsonBackReference
     private AccomEntity accomid;
 
     @NotNull
@@ -58,8 +62,10 @@ public class BookEntity {
     private String payment;
 
     @OneToMany(mappedBy = "bookid")
+    @JsonIgnore
     private Set<ReportEntity> reports = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "bookid")
+    @JsonIgnore
     private Set<ReviewEntity> reviews = new LinkedHashSet<>();
 }

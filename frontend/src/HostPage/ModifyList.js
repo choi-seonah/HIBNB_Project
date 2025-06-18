@@ -39,7 +39,7 @@ export default function ModifyList() {
                     >
                         <img
                             className="accom-img"
-                            src={item.imageUrls[0]}
+                            src={Array.isArray(item.imageUrls) && item.imageUrls.length > 0 ? item.imageUrls[0] : ""}
                             alt={item.address || "숙소 이미지"}
                         />
                         <div className="accom-card-content">

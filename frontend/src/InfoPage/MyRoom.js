@@ -113,7 +113,7 @@ export default function MyRoom() {
                 type:reportType,
             });
 
-            alert("리뷰가 성공적으로 제출되었습니다!");
+            alert("신고가 성공적으로 제출되었습니다!");
             setReportText("");
             setReportModal(false);
         } catch (error) {

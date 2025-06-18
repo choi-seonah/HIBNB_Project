@@ -21,19 +21,22 @@ public class ReissueController {
     public ResponseEntity<String> reissue(HttpServletRequest request, HttpServletResponse response) {
         String refresh_token = null;
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("refresh")) {
-                refresh_token = cookie.getValue();
-                break;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("refresh")) {
+                    refresh_token = cookie.getValue();
+                    break;
+                }
             }
         }
+
         if (refresh_token == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("token is null");
         }
 
         try {
             this.jwtUtil.isExpired(refresh_token);
-        }catch (ExpiredJwtException e) {
+        } catch (ExpiredJwtException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("token is expired");
         }
 

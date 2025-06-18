@@ -58,14 +58,12 @@ public class AccomController {
     @PostMapping(value = "/save")
     public ResponseEntity<String> saveAccom(@ModelAttribute AccomDTO accomDTO) throws IOException {
         String result = this.accomService.saveAccom(accomDTO);
-        this.accomDAO.updateCoordinatesForAll();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PutMapping(value="/update")
     public ResponseEntity<String> updateAccom(@ModelAttribute AccomDTO accomDTO) throws IOException {
         String result = this.accomService.updateAccom(accomDTO);
-        this.accomDAO.updateCoordinatesForAll();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

@@ -16,6 +16,8 @@ export default function MyInfo() {
     const currentUser = userInfoList && userInfoList.length > 0 ? userInfoList[0] : null;
     console.log("current user is : ",currentUser.name);
 
+
+
     useEffect(() => {
         if (currentUser) {
             setEmail(currentUser.email || "");
@@ -24,6 +26,12 @@ export default function MyInfo() {
             setAge(currentUser.age || "");
         }
     }, [currentUser]);
+
+    useEffect(() => {
+        if (userInfoList && userInfoList.length > 0) {
+            // 필요한 상태 설정이나 API 호출 등
+        }
+    }, [userInfoList]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -55,9 +63,14 @@ export default function MyInfo() {
 
             const res = await apiClient.put("/update-inform", updatedUser);
 
+            console.log("res.data", res.data);
+            console.log("typeof res.data", typeof res.data);
+            console.log("setUserInfoList payload", [res.data]);
+
             if (res?.data) {
                 // Redux 업데이트
-                dispatch(setUserInfoList(res.data));
+                dispatch(setUserInfoList([res.data]));
+
 
                 // 입력 필드 상태값도 업데이트
                 setName(res.data.name || "");
@@ -66,7 +79,7 @@ export default function MyInfo() {
                 setPhone(res.data.phone || "");
 
                 alert(`정보가 수정되었습니다.\n\n변경된 항목:\n${changes.join("\n")}`);
-                navigate("/");
+                // navigate("/");
             } else {
                 alert("서버로부터 올바른 응답을 받지 못했습니다.");
             }
