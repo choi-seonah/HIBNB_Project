@@ -169,19 +169,19 @@ public class AccomDAO {
                 // 각 img 필드와 비교하여 일치하면 파일 삭제 및 DB 필드를 null로 설정
                 if (urlToDelete.equals(imgToUpdate.getImg1())) {
                     String url = imgToUpdate.getImg1().substring(22);
-                    this.deleteFileByUrl("C:/Users/803-18/Desktop/sihyun-spring-project/1. team-project/"+url);
+                    this.deleteFileByUrl("C:/Users/USER/Desktop/myfile/developerStudy/project/teamproject/hibnb_origin/hibnb_test3_refactor"+url);
                     imgToUpdate.setImg1(null);
                 } else if (urlToDelete.equals(imgToUpdate.getImg2())) {
                     String url = imgToUpdate.getImg2().substring(22);
-                    this.deleteFileByUrl("C:/Users/803-18/Desktop/sihyun-spring-project/1. team-project/"+url);
+                    this.deleteFileByUrl("C:/Users/USER/Desktop/myfile/developerStudy/project/teamproject/hibnb_origin/hibnb_test3_refactor"+url);
                     imgToUpdate.setImg2(null);
                 } else if (urlToDelete.equals(imgToUpdate.getImg3())) {
                     String url = imgToUpdate.getImg3().substring(22);
-                    this.deleteFileByUrl("C:/Users/803-18/Desktop/sihyun-spring-project/1. team-project/"+url);
+                    this.deleteFileByUrl("C:/Users/USER/Desktop/myfile/developerStudy/project/teamproject/hibnb_origin/hibnb_test3_refactor"+url);
                     imgToUpdate.setImg3(null);
                 } else if (urlToDelete.equals(imgToUpdate.getImg4())) {
                     String url = imgToUpdate.getImg4().substring(22);
-                    this.deleteFileByUrl("C:/Users/803-18/Desktop/sihyun-spring-project/1. team-project/"+url);
+                    this.deleteFileByUrl("C:/Users/USER/Desktop/myfile/developerStudy/project/teamproject/hibnb_origin/hibnb_test3_refactor"+url);
                     imgToUpdate.setImg4(null);
                 }
 
