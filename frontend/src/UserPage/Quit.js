@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import apiClient from "../util/apiInstance";
-import {persistor, userLogout} from "../store";
+import {persistor, setToken, userLogout} from "../store";
 import "../css/components.css";
 
 export default function Quit(){
@@ -12,6 +12,7 @@ export default function Quit(){
 
     const currentUser = useSelector((state) => state.userInfo.userInfoList[0]);
     const token = useSelector((state) => state.token.token);
+    const [user,setUser]=useState(currentUser);
 
     const handleQuit = async () => {
         try {
@@ -20,6 +21,9 @@ export default function Quit(){
             });
 
             alert("🙇‍♂️그동안 이용해주셔서 감사합니다.🙇‍♂️");
+            await dispatch(setToken(null));
+            await dispatch(userLogout());
+            await setUser(null);
             await persistor.purge();
             navigate("/");
         } catch (error) {
