@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {useEffect, useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
 import {setUserInfoList} from "../store";
 import "../css/components.css";
 import apiClient from "../util/apiInstance";
@@ -9,7 +9,7 @@ export default function MyInfo() {
     const [email, setEmail] = useState("");
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.userInfo.userInfoList[0]);
-    console.log("current user is : ",currentUser.name);
+    console.log("current user is : ", currentUser.name);
 
     useEffect(() => {
         if (currentUser) {
@@ -25,7 +25,6 @@ export default function MyInfo() {
             alert("이메일과 전화번호를 모두 입력해주세요.");
             return;
         }
-
         try {
             const updatedUser = {
                 ...currentUser,
@@ -57,7 +56,7 @@ export default function MyInfo() {
                 </p>
 
                 <label className="myinfo-label">
-                    <strong>전화번호</strong><br />
+                    <strong>전화번호</strong><br/>
                     <input
                         type="tel"
                         value={phone}
@@ -67,7 +66,7 @@ export default function MyInfo() {
                 </label>
 
                 <label className="myinfo-label">
-                    <strong>이메일</strong><br />
+                    <strong>이메일</strong><br/>
                     <input
                         type="email"
                         value={email}
@@ -75,7 +74,6 @@ export default function MyInfo() {
                         className="myinfo-input"
                     />
                 </label>
-
                 <button type="submit" className="myinfo-button">
                     정보 수정
                 </button>

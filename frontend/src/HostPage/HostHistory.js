@@ -4,7 +4,8 @@ import {useState} from "react";
 import '../index.css';
 
 export default function HostHistory() {
-    const user = useSelector(state => state.userInfo.userInfoList);
+    const user = useSelector(state => state.userInfo.userInfoList[0]);
+    console.log(user);
     const [bookings, setBookings] = useState([]);
     const [reportTargetId, setReportTargetId] = useState(null);
     const [reportType, setReportType] = useState('');

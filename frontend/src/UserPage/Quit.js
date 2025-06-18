@@ -5,7 +5,7 @@ import apiClient from "../util/apiInstance";
 import {persistor, userLogout} from "../store";
 import "../css/components.css";
 
-export default function Quit(){
+export default function Quit() {
     const [showConfirm, setShowConfirm] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function Quit(){
     const handleQuit = async () => {
         try {
             await apiClient.delete("/delete-member", {
-                params: { username: currentUser.username },
+                params: {username: currentUser.username},
             });
 
             alert("🙇‍♂️그동안 이용해주셔서 감사합니다.🙇‍♂️");

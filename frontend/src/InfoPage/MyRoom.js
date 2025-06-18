@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 import "../css/components.css";
 import apiClient from "../util/apiInstance";
 
@@ -12,10 +12,10 @@ export default function MyRoom() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(false);
-    const [reportModal, setReportModal]=useState(false);
+    const [reportModal, setReportModal] = useState(false);
     const [reviewText, setReviewText] = useState("");
-    const [reportText, setReportText]=useState("");
-    const [reportType, setReportType]=useState("");
+    const [reportText, setReportText] = useState("");
+    const [reportType, setReportType] = useState("");
     const currentUser = useSelector((state) => state.userInfo.userInfoList[0]);
     const [rating, setRating] = useState(0);
 
@@ -31,7 +31,7 @@ export default function MyRoom() {
 
             try {
                 const response = await apiClient.get("/book/list", {
-                    params: { username: currentUser.username },
+                    params: {username: currentUser.username},
                 });
 
                 const pastReservations = response.data.filter(
@@ -72,7 +72,7 @@ export default function MyRoom() {
 
             const now = new Date().toISOString();
 
-            await apiClient.post("/review/save",  {
+            await apiClient.post("/review/save", {
                 bookid: mostRecentBooking.id,
                 accomid: mostRecentBooking.accomid,
                 username: currentUser.username,
@@ -104,13 +104,13 @@ export default function MyRoom() {
 
             const now = new Date().toISOString();
 
-            await apiClient.post("/report/save",  {
+            await apiClient.post("/report/save", {
                 bookid: mostRecentBooking.id,
                 accomid: mostRecentBooking.accomid,
                 username: currentUser.username,
                 comment: reportText,
                 createdAt: now,
-                type:reportType,
+                type: reportType,
             });
 
             alert("리뷰가 성공적으로 제출되었습니다!");
@@ -224,10 +224,10 @@ export default function MyRoom() {
                                     <option value="기타">기타</option>
                                 </select>
                             </label>
-                            <br />
+                            <br/>
                             <label className="report-label">
                                 상세 내용:
-                                <br />
+                                <br/>
                                 <textarea
                                     className="report-textarea"
                                     value={reportText}
@@ -236,7 +236,7 @@ export default function MyRoom() {
                                     cols={50}
                                 />
                             </label>
-                            <br />
+                            <br/>
                             <div className="report-modal-footer">
                                 <button
                                     className="report-cancel-btn"

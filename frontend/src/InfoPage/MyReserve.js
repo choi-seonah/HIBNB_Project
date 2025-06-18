@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import dayjs from "dayjs";
 import "../css/components.css";
 import {useSelector} from "react-redux";
@@ -19,7 +19,7 @@ export default function MyReserve() {
     const fetchReservations = async () => {
         try {
             const res = await apiClient.get("/book/list", {
-                params: { username: currentUser.username }
+                params: {username: currentUser.username}
             });
             console.log("📦 받아온 예약 데이터:", res.data);
 
@@ -60,13 +60,13 @@ export default function MyReserve() {
     const cancelReservation = async (id) => {
         try {
             await apiClient.put("/book/cancel", {
-                id:id,
+                id: id,
                 username: currentUser.username,
                 accomid: reservations.find(item => item.id === id).accommodation
             });
             setReservations((prev) =>
                 prev.map((res) =>
-                    res.id === id ? { ...res, status: "예약취소됨" } : res
+                    res.id === id ? {...res, status: "예약취소됨"} : res
                 )
             );
             if (selectedReservationId === id) {
@@ -101,7 +101,7 @@ export default function MyReserve() {
             alert("체크아웃 날짜는 체크인 날짜 이후여야 합니다.");
             return;
         }
-        const betweenDays=dayjs(editForm.checkOut).diff(dayjs(editForm.checkIn),"day");
+        const betweenDays = dayjs(editForm.checkOut).diff(dayjs(editForm.checkIn), "day");
 
         try {
             await apiClient.put("/book/update", {
@@ -135,7 +135,7 @@ export default function MyReserve() {
     };
 
     const handleEditChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setEditForm((prev) => ({
             ...prev,
             [name]: name === "guests" ? parseInt(value) : value,
@@ -228,14 +228,17 @@ export default function MyReserve() {
                                             <button onClick={() => saveChanges(res.id)} className="reserve-button save">
                                                 변경 저장
                                             </button>
-                                            <button onClick={() => setEditingId(null)} className="reserve-button cancel">
+                                            <button onClick={() => setEditingId(null)}
+                                                    className="reserve-button cancel">
                                                 취소
                                             </button>
                                         </div>
                                     </div>
                                 ) : (
                                     <>
-                                        <p><strong>예약 기간:</strong> {dayjs(res.checkIn).format("YYYY.MM.DD")} ~ {dayjs(res.checkOut).format("YYYY.MM.DD")}</p>
+                                        <p><strong>예약
+                                            기간:</strong> {dayjs(res.checkIn).format("YYYY.MM.DD")} ~ {dayjs(res.checkOut).format("YYYY.MM.DD")}
+                                        </p>
                                         <p><strong>인원:</strong> {res.guests}명</p>
                                         {res.price && <p><strong>금액:</strong> {res.price.toLocaleString()}원</p>}
                                     </>

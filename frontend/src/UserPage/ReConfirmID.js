@@ -61,7 +61,6 @@ export default function ReConfirmID() {
                 />
                 <button onClick={handleSendEmail} className={"reconfirm-form-btn"}>인증번호 전송</button>
                 <br/>
-
                 <input
                     type="password"
                     name="authennum"
@@ -70,7 +69,6 @@ export default function ReConfirmID() {
                     className={"reconfirm-form-input"}
                     onChange={(e) => setCode(e.target.value)}
                 />
-
                 <button type="submit" disabled={!code} className={"reconfirm-form-btn"}>인증하기</button>
             </form>
         </div>

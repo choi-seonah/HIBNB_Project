@@ -1,4 +1,3 @@
-import MainSearch from "./MainSearch";
 import {Outlet, useNavigate} from "react-router-dom";
 import apiClient from "../util/apiInstance";
 import {useEffect, useState} from "react";
@@ -16,7 +15,6 @@ export default function Recommend() {
                 console.error("Random5 데이터 불러오기 실패:", error);
             });
     }, []);
-
 
     return (
         <>

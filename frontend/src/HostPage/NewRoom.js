@@ -25,7 +25,6 @@ export default function NewRoom() {
         images: [],
     });
 
-
     // 입력 변경 처리
     const handleChange = (e) => {
         const {name, value, files} = e.target;

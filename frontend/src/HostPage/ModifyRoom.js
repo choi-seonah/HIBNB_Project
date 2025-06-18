@@ -18,7 +18,6 @@ export default function ModifyRoom() {
     const [photoIndex, setPhotoIndex] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
 
-
     const [formData, setFormData] = useState({
         hostid: user.username || "",
         hostname: user.name || "",
@@ -295,7 +294,6 @@ export default function ModifyRoom() {
                                 </div>
                             ))}
                     </div>
-
                     {isOpen && (
                         <Lightbox
                             mainSrc={item.imageUrls[photoIndex]}
@@ -308,7 +306,6 @@ export default function ModifyRoom() {
                             onMoveNextRequest={() =>
                                 setPhotoIndex((photoIndex + 1) % item.imageUrls.length)
                             }
-
                         />
                     )}
                     <br/><br/>
