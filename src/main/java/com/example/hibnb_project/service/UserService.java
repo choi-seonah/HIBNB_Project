@@ -72,8 +72,17 @@ public class UserService {
         this.userDAO.resetPassword(username, password);
     }
 
-    public void updateInform(UserDTO userDTO) {
-        this.userDAO.updateInform(userDTO.getUsername(),userDTO.getName(),userDTO.getPhone(),userDTO.getEmail(),userDTO.getAge());
+    public UserDTO updateInform(UserDTO userDTO) {
+        UserEntity updated=this.userDAO.updateInform(userDTO.getUsername(),userDTO.getName(),userDTO.getPhone(),userDTO.getEmail(),userDTO.getAge());
+        UserDTO updatedDTO= UserDTO.builder()
+                .username(updated.getUsername())
+                .role(updated.getRole())
+                .name(updated.getName())
+                .phone(updated.getPhone())
+                .email(updated.getEmail())
+                .age(updated.getAge())
+                .build();
+        return updatedDTO;
     }
 
     public Boolean comaprePassword(String username, String password) {

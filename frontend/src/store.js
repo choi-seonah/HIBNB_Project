@@ -28,9 +28,9 @@ const userInfoSlice = createSlice({
         adminLogout: (state) => {
             state.adminLoginFlag = false;
         },
-        userLogin: (state) => {
-            state.userInfoList = [];
-            state.userRole = null;
+        userLogin: (state, action) => {
+            state.userInfoList = [action.payload]; // 로그인 시 사용자 정보 세팅
+            state.userRole = action.payload.role || null;
         },
         userLogout: (state) => {
             state.userInfoList = [];

@@ -5,14 +5,19 @@ import '../index.css';
 
 export default function HostHistory() {
     const user = useSelector(state => state.userInfo.userInfoList);
+    const username = user?.[0]?.username;
     const [bookings, setBookings] = useState([]);
     const [reportTargetId, setReportTargetId] = useState(null);
     const [reportType, setReportType] = useState('');
     const [reportComment, setReportComment] = useState('');
 
     const handleCheck = async () => {
+        if (!username) {
+            alert("유저 정보가 없습니다.");
+            return;
+        }
         try {
-            const response = await apiClient.get(`http://localhost:8080/book/list/hostid?hostid=${user.username}`);
+            const response = await apiClient.get(`http://localhost:8080/book/list/hostid?hostid=${username}`);
             if (response.data) {
                 setBookings(response.data);
                 alert("조회 완료");

@@ -1,5 +1,6 @@
 package com.example.hibnb_project.data.dao;
 
+import com.example.hibnb_project.data.dto.UserDTO;
 import com.example.hibnb_project.data.entity.UserEntity;
 import com.example.hibnb_project.data.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -56,7 +57,7 @@ public class UserDAO {
         throw new EntityNotFoundException("user not found");
     }
 
-    public void updateInform(String username,String name,String phone,String email,Integer age){
+    public UserEntity updateInform(String username, String name, String phone, String email, Integer age){
         Optional<UserEntity> user=this.userRepository.findById(username);
         if(user.isPresent()){
             UserEntity updateUser= user.get();
@@ -67,7 +68,7 @@ public class UserDAO {
             updateUser.setAge(age);
 
             this.userRepository.save(updateUser);
-            return;
+            return updateUser;
         }
         throw new EntityNotFoundException("user not found");
     }

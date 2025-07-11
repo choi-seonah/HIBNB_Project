@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import apiClient from "../util/apiInstance";
 import dayjs from "dayjs";
 import '../index.css';
@@ -9,6 +9,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import KakaoMap from "../KakaoMap/KakaoMap";
+import {useEffect} from "react";
+import {setAccom} from "../store";
 
 
 export default function AccomDetail() {
@@ -19,6 +21,14 @@ export default function AccomDetail() {
     console.log(item);
     const searchParams = useSelector((state) => state.search.searchParams);
     const currentUser = useSelector((state) => state.userInfo.userInfoList[0]);
+    const dispatch= useDispatch();
+
+    if (!currentUser) {
+        alert("로그인이 필요합니다.");
+        navigate("/login");
+        return;
+    }
+
 
     const handleMove = async (e) => {
         e.preventDefault();

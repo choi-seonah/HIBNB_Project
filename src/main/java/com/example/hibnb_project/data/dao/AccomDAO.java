@@ -57,7 +57,7 @@ public class AccomDAO {
     }
 
     public List<BookEntity> findTop5Books() {
-        return this.bookRepository.findTop5ByOrderByAccomidDescAccomidDesc();
+        return this.bookRepository.findTop5ByOrderByAccomidDesc();
     }
 
     public AccomEntity findById(Integer id) {
@@ -99,6 +99,15 @@ public class AccomDAO {
                 .beds(beds)
                 .bathrooms(bathrooms)
                 .build();
+
+         //2-1.위도 경도 생성
+         if (newAccom.getLatitude() == null || newAccom.getLongitude() == null) {
+             Map<String, Double> coords = getCoordinatesFromAddress(newAccom.getAddress());
+             if (coords != null) {
+                 newAccom.setLatitude(coords.get("lat"));
+                 newAccom.setLongitude(coords.get("lng"));
+             }
+         }
 
         ImgEntity newImg = new ImgEntity();
 
@@ -160,19 +169,19 @@ public class AccomDAO {
                 // 각 img 필드와 비교하여 일치하면 파일 삭제 및 DB 필드를 null로 설정
                 if (urlToDelete.equals(imgToUpdate.getImg1())) {
                     String url = imgToUpdate.getImg1().substring(22);
-                    this.deleteFileByUrl("C:/Users/803-18/Desktop/sihyun-spring-project/1. team-project/"+url);
+                    this.deleteFileByUrl("C:/Users/USER/Desktop/myfile/developerStudy/project/teamproject/hibnb_origin/hibnb_test3_refactor"+url);
                     imgToUpdate.setImg1(null);
                 } else if (urlToDelete.equals(imgToUpdate.getImg2())) {
                     String url = imgToUpdate.getImg2().substring(22);
-                    this.deleteFileByUrl("C:/Users/803-18/Desktop/sihyun-spring-project/1. team-project/"+url);
+                    this.deleteFileByUrl("C:/Users/USER/Desktop/myfile/developerStudy/project/teamproject/hibnb_origin/hibnb_test3_refactor"+url);
                     imgToUpdate.setImg2(null);
                 } else if (urlToDelete.equals(imgToUpdate.getImg3())) {
                     String url = imgToUpdate.getImg3().substring(22);
-                    this.deleteFileByUrl("C:/Users/803-18/Desktop/sihyun-spring-project/1. team-project/"+url);
+                    this.deleteFileByUrl("C:/Users/USER/Desktop/myfile/developerStudy/project/teamproject/hibnb_origin/hibnb_test3_refactor"+url);
                     imgToUpdate.setImg3(null);
                 } else if (urlToDelete.equals(imgToUpdate.getImg4())) {
                     String url = imgToUpdate.getImg4().substring(22);
-                    this.deleteFileByUrl("C:/Users/803-18/Desktop/sihyun-spring-project/1. team-project/"+url);
+                    this.deleteFileByUrl("C:/Users/USER/Desktop/myfile/developerStudy/project/teamproject/hibnb_origin/hibnb_test3_refactor"+url);
                     imgToUpdate.setImg4(null);
                 }
 
@@ -226,6 +235,14 @@ public class AccomDAO {
         accomToUpdate.setBedrooms(bedrooms);
         accomToUpdate.setBeds(beds);
         accomToUpdate.setBathrooms(bathrooms);
+
+        if (accomToUpdate.getLatitude() == null || accomToUpdate.getLongitude() == null) {
+            Map<String, Double> coords = getCoordinatesFromAddress(accomToUpdate.getAddress());
+            if (coords != null) {
+                accomToUpdate.setLatitude(coords.get("lat"));
+                accomToUpdate.setLongitude(coords.get("lng"));
+            }
+        }
 
         // 6. 변경된 엔티티 저장
         // @Transactional 안에서는 이 save 호출이 없어도 커밋 시점에 자동으로 UPDATE가 되지만,
